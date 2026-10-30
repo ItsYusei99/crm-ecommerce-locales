@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CRM Ecommerce Locales</title>
+  <link rel="stylesheet" href="/crm-ecommerce-locales/demo/static/estilos.css">
+<style>form button, form input, form select, form textarea{pointer-events:none;opacity:.55}</style><script>document.addEventListener('submit',e=>e.preventDefault(),true)</script></head>
+<body>
+  <header>
+    <strong>CRM Ecommerce Locales</strong>
+    
+    <nav>
+      <a href="/crm-ecommerce-locales/demo/">Dashboard</a>
+      <a href="/crm-ecommerce-locales/demo/clientes/">Clientes</a>
+      <a href="/crm-ecommerce-locales/demo/ventas/">Ventas</a>
+      <a href="/crm-ecommerce-locales/demo/actividades/">Actividades</a>
+      <a href="/crm-ecommerce-locales/demo/auth/usuarios/">Usuarios</a>
+      <span class="usuario">Youssef (admin)</span>
+      <a href="/crm-ecommerce-locales/demo/auth/logout/">Salir</a>
+    </nav>
+    
+  </header>
+  <main><div class="aviso">Demo de solo lectura en GitHub Pages con datos de prueba. Los formularios estan desactivados; para usar el CRM completo correlo en local (ver README).</div>
+    
+    
+<h1>Usuarios y roles</h1>
+<table>
+  <tr><th>Nombre</th><th>Correo</th><th>Rol</th></tr>
+  
+  <tr><td>Youssef</td><td>youssef@crm.local</td>
+    <td><form method="post" class="linea">
+      <input type="hidden" name="id_usuario" value="1">
+      <select name="rol"><option selected>admin</option><option >editor</option><option >colaborador</option></select>
+      <button>Guardar</button></form></td></tr>
+  
+  <tr><td>Emmanuel</td><td>emma@crm.local</td>
+    <td><form method="post" class="linea">
+      <input type="hidden" name="id_usuario" value="2">
+      <select name="rol"><option >admin</option><option selected>editor</option><option >colaborador</option></select>
+      <button>Guardar</button></form></td></tr>
+  
+</table>
+
+  </main>
+</body>
+</html>

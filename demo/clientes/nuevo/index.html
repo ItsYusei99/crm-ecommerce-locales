@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CRM Ecommerce Locales</title>
+  <link rel="stylesheet" href="/crm-ecommerce-locales/demo/static/estilos.css">
+<style>form button, form input, form select, form textarea{pointer-events:none;opacity:.55}</style><script>document.addEventListener('submit',e=>e.preventDefault(),true)</script></head>
+<body>
+  <header>
+    <strong>CRM Ecommerce Locales</strong>
+    
+    <nav>
+      <a href="/crm-ecommerce-locales/demo/">Dashboard</a>
+      <a href="/crm-ecommerce-locales/demo/clientes/">Clientes</a>
+      <a href="/crm-ecommerce-locales/demo/ventas/">Ventas</a>
+      <a href="/crm-ecommerce-locales/demo/actividades/">Actividades</a>
+      <a href="/crm-ecommerce-locales/demo/auth/usuarios/">Usuarios</a>
+      <span class="usuario">Youssef (admin)</span>
+      <a href="/crm-ecommerce-locales/demo/auth/logout/">Salir</a>
+    </nav>
+    
+  </header>
+  <main><div class="aviso">Demo de solo lectura en GitHub Pages con datos de prueba. Los formularios estan desactivados; para usar el CRM completo correlo en local (ver README).</div>
+    
+    
+<form method="post" class="caja">
+  <h1>Nuevo cliente</h1>
+  <label>Nombre <input name="nombre" value="" required></label>
+  <label>WhatsApp (con lada, solo numeros) <input name="telefono_wa" value="" required></label>
+  <label>Instagram <input name="ig_user" value=""></label>
+  <label>Email <input name="email" type="email" value=""></label>
+  <button>Guardar</button>
+</form>
+
+  </main>
+</body>
+</html>

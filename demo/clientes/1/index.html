@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CRM Ecommerce Locales</title>
+  <link rel="stylesheet" href="/crm-ecommerce-locales/demo/static/estilos.css">
+<style>form button, form input, form select, form textarea{pointer-events:none;opacity:.55}</style><script>document.addEventListener('submit',e=>e.preventDefault(),true)</script></head>
+<body>
+  <header>
+    <strong>CRM Ecommerce Locales</strong>
+    
+    <nav>
+      <a href="/crm-ecommerce-locales/demo/">Dashboard</a>
+      <a href="/crm-ecommerce-locales/demo/clientes/">Clientes</a>
+      <a href="/crm-ecommerce-locales/demo/ventas/">Ventas</a>
+      <a href="/crm-ecommerce-locales/demo/actividades/">Actividades</a>
+      <a href="/crm-ecommerce-locales/demo/auth/usuarios/">Usuarios</a>
+      <span class="usuario">Youssef (admin)</span>
+      <a href="/crm-ecommerce-locales/demo/auth/logout/">Salir</a>
+    </nav>
+    
+  </header>
+  <main><div class="aviso">Demo de solo lectura en GitHub Pages con datos de prueba. Los formularios estan desactivados; para usar el CRM completo correlo en local (ver README).</div>
+    
+    
+<h1>Ana Lopez <span class="tag frecuente">frecuente</span></h1>
+<p>WhatsApp 5215512345678 · @ana.tienda · ana@mail.com · Alta 2026-01-10</p>
+<p><b>LTV: $897.00</b> ·
+  <a href="/crm-ecommerce-locales/demo/clientes/1/editar/">Editar</a>
+  
+  <form method="post" action="/crm-ecommerce-locales/demo/clientes/1/eliminar/" class="linea" onsubmit="return confirm('Eliminar cliente?')"><button class="peligro">Eliminar</button></form>
+  
+</p>
+<div class="dos">
+  <section>
+    <h2>Mensajes rapidos WhatsApp</h2>
+    <a class="boton" target="_blank" href="https://wa.me/5215512345678?text=Hola%20Ana%2C%20gracias%20por%20tu%20compra.%20Cualquier%20duda%20aqui%20estamos.">gracias</a> <a class="boton" target="_blank" href="https://wa.me/5215512345678?text=Hola%20Ana%2C%20hace%20tiempo%20no%20te%20vemos.%20Tenemos%20novedades%20que%20te%20pueden%20gustar.">reactivar</a> <a class="boton" target="_blank" href="https://wa.me/5215512345678?text=Hola%20Ana%2C%20nos%20ayudarias%20mucho%20con%20una%20resena%20de%20tu%20ultimo%20pedido.">resena</a> 
+    <h2>Registrar contacto</h2>
+    <form method="post" action="/crm-ecommerce-locales/demo/clientes/1/contacto/" class="caja">
+      <select name="tipo"><option>WhatsApp</option><option>Instagram</option><option>Llamada</option><option>Email</option></select>
+      <textarea name="mensaje" required placeholder="Que se hablo"></textarea>
+      <select name="resultado"><option>pendiente</option><option>respondio</option><option>compro</option><option>sin respuesta</option></select>
+      <button>Guardar contacto</button>
+    </form>
+  </section>
+  <section>
+    <h2>Pedidos</h2>
+    <table><tr><td>#2</td><td>2026-10-20</td><td>IG</td><td>$299.00</td><td>pagado</td></tr><tr><td>#1</td><td>2026-08-01</td><td>WA</td><td>$598.00</td><td>entregado</td></tr></table>
+    <h2>Historial de contactos</h2>
+    <ul><li>2026-10-30 05:08 · WhatsApp · Gracias por tu compra de Playera local <em>(respondio)</em></li></ul>
+  </section>
+</div>
+
+  </main>
+</body>
+</html>

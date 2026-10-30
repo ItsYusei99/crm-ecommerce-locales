@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CRM Ecommerce Locales</title>
+  <link rel="stylesheet" href="/crm-ecommerce-locales/demo/static/estilos.css">
+<style>form button, form input, form select, form textarea{pointer-events:none;opacity:.55}</style><script>document.addEventListener('submit',e=>e.preventDefault(),true)</script></head>
+<body>
+  <header>
+    <strong>CRM Ecommerce Locales</strong>
+    
+    <nav>
+      <a href="/crm-ecommerce-locales/demo/">Dashboard</a>
+      <a href="/crm-ecommerce-locales/demo/clientes/">Clientes</a>
+      <a href="/crm-ecommerce-locales/demo/ventas/">Ventas</a>
+      <a href="/crm-ecommerce-locales/demo/actividades/">Actividades</a>
+      <a href="/crm-ecommerce-locales/demo/auth/usuarios/">Usuarios</a>
+      <span class="usuario">Youssef (admin)</span>
+      <a href="/crm-ecommerce-locales/demo/auth/logout/">Salir</a>
+    </nav>
+    
+  </header>
+  <main><div class="aviso">Demo de solo lectura en GitHub Pages con datos de prueba. Los formularios estan desactivados; para usar el CRM completo correlo en local (ver README).</div>
+    
+    
+<h1>Seguimiento de ventas <a class="boton" href="/crm-ecommerce-locales/demo/ventas/nuevo/">+ Nuevo pedido</a></h1>
+<div class="pipeline">
+  
+  <section><h3>nuevo (0)</h3>
+    
+  </section>
+  
+  <section><h3>pagado (1)</h3>
+    
+    <div class="tarjeta">
+      <b>#2 Ana Lopez</b><br>IG · $299.00
+      <form method="post" action="/crm-ecommerce-locales/demo/ventas/2/estado/" class="linea">
+        <select name="estado"><option >nuevo</option><option selected>pagado</option><option >enviado</option><option >entregado</option><option >cancelado</option></select><button>Mover</button>
+      </form>
+    </div>
+    
+  </section>
+  
+  <section><h3>enviado (0)</h3>
+    
+  </section>
+  
+  <section><h3>entregado (2)</h3>
+    
+    <div class="tarjeta">
+      <b>#1 Ana Lopez</b><br>WA · $598.00
+      <form method="post" action="/crm-ecommerce-locales/demo/ventas/1/estado/" class="linea">
+        <select name="estado"><option >nuevo</option><option >pagado</option><option >enviado</option><option selected>entregado</option><option >cancelado</option></select><button>Mover</button>
+      </form>
+    </div>
+    
+    <div class="tarjeta">
+      <b>#3 Maria Ruiz</b><br>WEB · $499.00
+      <form method="post" action="/crm-ecommerce-locales/demo/ventas/3/estado/" class="linea">
+        <select name="estado"><option >nuevo</option><option >pagado</option><option >enviado</option><option selected>entregado</option><option >cancelado</option></select><button>Mover</button>
+      </form>
+    </div>
+    
+  </section>
+  
+  <section><h3>cancelado (0)</h3>
+    
+  </section>
+  
+</div>
+
+  </main>
+</body>
+</html>
