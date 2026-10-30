@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %}
+<form method="post" class="caja">
+  <h1>Nuevo pedido</h1>
+  <label>Cliente <select name="id_cliente">{% for c in clientes %}<option value="{{ c['id_cliente'] }}">{{ c['nombre'] }}</option>{% endfor %}</select></label>
+  <label>Producto <select name="id_producto">{% for p in productos %}<option value="{{ p['id_producto'] }}">{{ p['nombre'] }} (${{ p['precio'] }})</option>{% endfor %}</select></label>
+  <label>Cantidad <input name="cantidad" type="number" min="1" value="1"></label>
+  <label>Canal <select name="canal"><option>WA</option><option>IG</option><option>WEB</option></select></label>
+  <button>Registrar</button>
+</form>
+{% endblock %}
