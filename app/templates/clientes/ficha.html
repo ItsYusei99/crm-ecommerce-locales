@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>{{ c['nombre'] }} <span class="tag {{ c['segmento'] }}">{{ c['segmento'] }}</span></h1>
+<p>WhatsApp {{ c['telefono_wa'] }} · {{ c['ig_user'] or 'sin Instagram' }} · {{ c['email'] or 'sin email' }} · Alta {{ c['fecha_alta'] }}</p>
+<p><b>LTV: ${{ '%.2f'|format(c['ltv']) }}</b> ·
+  <a href="{{ url_for('clientes.editar', id_cliente=c['id_cliente']) }}">Editar</a>
+  {% if g.usuario['rol'] == 'admin' %}
+  <form method="post" action="{{ url_for('clientes.eliminar', id_cliente=c['id_cliente']) }}" class="linea" onsubmit="return confirm('Eliminar cliente?')"><button class="peligro">Eliminar</button></form>
+  {% endif %}
+</p>
+<div class="dos">
+  <section>
+    <h2>Mensajes rapidos WhatsApp</h2>
+    {% for k, url in links.items() %}<a class="boton" target="_blank" href="{{ url }}">{{ k }}</a> {% endfor %}
+    <h2>Registrar contacto</h2>
+    <form method="post" action="{{ url_for('clientes.contacto', id_cliente=c['id_cliente']) }}" class="caja">
+      <select name="tipo"><option>WhatsApp</option><option>Instagram</option><option>Llamada</option><option>Email</option></select>
+      <textarea name="mensaje" required placeholder="Que se hablo"></textarea>
+      <select name="resultado"><option>pendiente</option><option>respondio</option><option>compro</option><option>sin respuesta</option></select>
+      <button>Guardar contacto</button>
+    </form>
+  </section>
+  <section>
+    <h2>Pedidos</h2>
+    <table>{% for p in pedidos %}<tr><td>#{{ p['id_pedido'] }}</td><td>{{ p['fecha'][:10] }}</td><td>{{ p['canal'] }}</td><td>${{ '%.2f'|format(p['total']) }}</td><td>{{ p['estado'] }}</td></tr>{% else %}<tr><td>Sin pedidos.</td></tr>{% endfor %}</table>
+    <h2>Historial de contactos</h2>
+    <ul>{% for i in contactos %}<li>{{ i['fecha'][:16] }} · {{ i['tipo'] }} · {{ i['mensaje'] }} <em>({{ i['resultado'] }})</em></li>{% else %}<li>Sin contactos.</li>{% endfor %}</ul>
+  </section>
+</div>
+{% endblock %}

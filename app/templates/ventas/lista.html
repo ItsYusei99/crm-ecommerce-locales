@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Seguimiento de ventas <a class="boton" href="{{ url_for('ventas.nuevo') }}">+ Nuevo pedido</a></h1>
+<div class="pipeline">
+  {% for e in estados %}
+  <section><h3>{{ e }} ({{ pipeline[e]|length }})</h3>
+    {% for p in pipeline[e] %}
+    <div class="tarjeta">
+      <b>#{{ p['id_pedido'] }} {{ p['cliente'] }}</b><br>{{ p['canal'] }} · ${{ '%.2f'|format(p['total']) }}
+      <form method="post" action="{{ url_for('ventas.cambiar_estado', id_pedido=p['id_pedido']) }}" class="linea">
+        <select name="estado">{% for x in estados %}<option {% if x == e %}selected{% endif %}>{{ x }}</option>{% endfor %}</select><button>Mover</button>
+      </form>
+    </div>
+    {% endfor %}
+  </section>
+  {% endfor %}
+</div>
+{% endblock %}
