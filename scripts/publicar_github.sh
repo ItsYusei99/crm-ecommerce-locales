@@ -5,20 +5,32 @@ set -euo pipefail
 REPO="${1:-crm-ecommerce-locales}"
 cd "$(dirname "$0")/.."
 
-gh repo create "$REPO" --public --source . --remote origin --push
+git remote get-url origin >/dev/null 2>&1 || gh repo create "$REPO" --public --source . --remote origin
 git push origin --all
 git push origin --tags
 OWNER_REPO="$(gh repo view --json nameWithOwner -q .nameWithOwner)"
+gh repo edit "$OWNER_REPO" --default-branch main
 
 for l in "requisito:1c3454" "bug:c0392b" "backend:009688" "frontend:7b61ff" "ci:b26b00"; do
   gh label create "${l%%:*}" --color "${l##*:}" --force
 done
 
-gh api "repos/$OWNER_REPO/milestones" -f title=beta -f description="v0.7.0-beta: modulos principales y CI" -f due_on=2026-10-27T05:00:00Z -f state=closed >/dev/null
-gh api "repos/$OWNER_REPO/milestones" -f title=rc -f description="v0.9.0-rc: plantillas, exportar, catalogo, MySQL" -f due_on=2026-11-17T05:00:00Z >/dev/null
+# beta se crea abierto para poder asignarle issues; se cierra al final
+milestone() { # titulo descripcion fecha
+  local num
+  num=$(gh api "repos/$OWNER_REPO/milestones?state=all" -q ".[] | select(.title==\"$1\") | .number")
+  if [ -n "$num" ]; then
+    gh api -X PATCH "repos/$OWNER_REPO/milestones/$num" -f state=open >/dev/null
+  else
+    gh api "repos/$OWNER_REPO/milestones" -f title="$1" -f description="$2" -f due_on="$3" >/dev/null
+  fi
+}
+milestone beta "v0.7.0-beta: modulos principales y CI" 2026-10-27T05:00:00Z
+milestone rc "v0.9.0-rc: plantillas, exportar, catalogo, MySQL" 2026-11-17T05:00:00Z
 
 issue() { # titulo milestone labels cerrar descripcion analisis solucion
   local url
+  if [ -n "$(gh issue list --state all --search "\"$1\" in:title" --json number -q '.[].number')" ]; then return; fi
   url=$(gh issue create --title "$1" --milestone "$2" --label "$3" \
     --body "$(printf '## Descripcion\n%s\n\n## Analisis\n%s\n\n## Solucion\n%s\n' "$5" "$6" "$7")")
   [ "$4" = "si" ] && gh issue close "$url" --comment "Implementado y probado (pytest en verde)."
@@ -65,5 +77,8 @@ issue "Catalogo de productos (CRUD)" rc "requisito,backend" no \
   "Dar de alta productos sin tocar la BD." "Tabla Producto ya existe." "Blueprint productos con CRUD para admin y editor."
 issue "Migrar de SQLite a MySQL" rc "backend" no \
   "Produccion usara MySQL como se decidio en la Fase II." "El esquema ya es equivalente a CRM_BD.sql." "Leer DATABASE_URL y usar PyMySQL; mantener SQLite para pruebas."
+
+BETA=$(gh api "repos/$OWNER_REPO/milestones?state=all" -q '.[] | select(.title=="beta") | .number')
+gh api -X PATCH "repos/$OWNER_REPO/milestones/$BETA" -f state=closed >/dev/null
 
 echo "Listo: https://github.com/$OWNER_REPO"
