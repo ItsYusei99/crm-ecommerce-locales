@@ -1,0 +1,19 @@
+# Alternativa a Travis: pipeline de Drone CI con el mismo flujo
+kind: pipeline
+type: docker
+name: pruebas
+
+steps:
+  - name: test
+    image: python:3.12-slim
+    commands:
+      - pip install -r requirements.txt
+      - python -m pytest -v
+
+trigger:
+  branch:
+    - main
+    - develop
+  event:
+    - push
+    - pull_request
