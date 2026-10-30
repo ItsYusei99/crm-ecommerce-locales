@@ -8,6 +8,8 @@ clientes (nuevo, frecuente, inactivo) para hacer postventa por WhatsApp.
 
 [![Build Status](https://app.travis-ci.com/ItsYusei99/crm-ecommerce-locales.svg?branch=main)](https://app.travis-ci.com/ItsYusei99/crm-ecommerce-locales)
 
+**Sitio y demo:** https://itsyusei99.github.io/crm-ecommerce-locales/
+
 ## Estado: Fase III - 70 % funcional
 
 | Modulo | Estado |
@@ -39,6 +41,10 @@ python -m pytest -v
 ```
 
 Travis CI (`.travis.yml`) y Drone (`.drone.yml`) corren las mismas pruebas en cada push y pull request.
+
+## GitHub Pages
+
+`python scripts/build_pages.py` genera en `_site/` la landing (`pages/`) y una demo de solo lectura de la app con datos de prueba. Ese contenido se publica en la rama `gh-pages`.
 
 ## Estructura
 
