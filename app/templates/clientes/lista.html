@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Clientes <a class="boton" href="{{ url_for('clientes.nuevo') }}">+ Nuevo</a></h1>
+<form class="linea">
+  <input name="q" value="{{ q }}" placeholder="Buscar nombre, WhatsApp o Instagram">
+  <select name="segmento"><option value="">Todos</option>{% for s in ['nuevo','frecuente','inactivo'] %}<option {% if s == segmento %}selected{% endif %}>{{ s }}</option>{% endfor %}</select>
+  <button>Filtrar</button>
+</form>
+<table>
+  <tr><th>Nombre</th><th>WhatsApp</th><th>Instagram</th><th>Segmento</th><th>LTV</th></tr>
+  {% for c in clientes %}
+  <tr><td><a href="{{ url_for('clientes.ficha', id_cliente=c['id_cliente']) }}">{{ c['nombre'] }}</a></td>
+    <td>{{ c['telefono_wa'] }}</td><td>{{ c['ig_user'] or '' }}</td>
+    <td><span class="tag {{ c['segmento'] }}">{{ c['segmento'] }}</span></td><td>${{ '%.2f'|format(c['ltv']) }}</td></tr>
+  {% else %}<tr><td colspan="5">Sin clientes.</td></tr>{% endfor %}
+</table>
+{% endblock %}
