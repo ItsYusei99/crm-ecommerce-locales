@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}CRM Ecommerce Locales{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='estilos.css') }}">
+</head>
+<body>
+  <header>
+    <strong>CRM Ecommerce Locales</strong>
+    {% if g.usuario %}
+    <nav>
+      <a href="{{ url_for('index') }}">Dashboard</a>
+      <a href="{{ url_for('clientes.lista') }}">Clientes</a>
+      <a href="{{ url_for('ventas.lista') }}">Ventas</a>
+      <a href="{{ url_for('actividades.lista') }}">Actividades</a>
+      {% if g.usuario['rol'] == 'admin' %}<a href="{{ url_for('auth.usuarios') }}">Usuarios</a>{% endif %}
+      <span class="usuario">{{ g.usuario['nombre'] }} ({{ g.usuario['rol'] }})</span>
+      <a href="{{ url_for('auth.logout') }}">Salir</a>
+    </nav>
+    {% endif %}
+  </header>
+  <main>
+    {% for m in get_flashed_messages() %}<div class="aviso">{{ m }}</div>{% endfor %}
+    {% block content %}{% endblock %}
+  </main>
+</body>
+</html>

@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Usuarios y roles</h1>
+<table>
+  <tr><th>Nombre</th><th>Correo</th><th>Rol</th></tr>
+  {% for u in usuarios %}
+  <tr><td>{{ u['nombre'] }}</td><td>{{ u['correo'] }}</td>
+    <td><form method="post" class="linea">
+      <input type="hidden" name="id_usuario" value="{{ u['id_usuario'] }}">
+      <select name="rol">{% for r in ['admin','editor','colaborador'] %}<option {% if r == u['rol'] %}selected{% endif %}>{{ r }}</option>{% endfor %}</select>
+      <button>Guardar</button></form></td></tr>
+  {% endfor %}
+</table>
+{% endblock %}
