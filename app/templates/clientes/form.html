@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %}
+<form method="post" class="caja">
+  <h1>{{ 'Editar' if cliente else 'Nuevo' }} cliente</h1>
+  <label>Nombre <input name="nombre" value="{{ cliente['nombre'] if cliente }}" required></label>
+  <label>WhatsApp (con lada, solo numeros) <input name="telefono_wa" value="{{ cliente['telefono_wa'] if cliente }}" required></label>
+  <label>Instagram <input name="ig_user" value="{{ cliente['ig_user'] or '' if cliente }}"></label>
+  <label>Email <input name="email" type="email" value="{{ cliente['email'] or '' if cliente }}"></label>
+  <button>Guardar</button>
+</form>
+{% endblock %}
