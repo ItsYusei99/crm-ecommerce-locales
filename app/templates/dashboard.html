@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Dashboard</h1>
+<section class="kpis">
+  <div><span>Ventas</span><b>${{ '%.2f'|format(kpi['ventas']) }}</b></div>
+  <div><span>Pedidos</span><b>{{ kpi['pedidos'] }}</b></div>
+  <div><span>Ticket promedio</span><b>${{ '%.2f'|format(kpi['ticket']) }}</b></div>
+  <div><span>Clientes</span><b>{{ total_clientes }}</b></div>
+  <div><span>Recompra</span><b>{{ recompra_pct }}%</b></div>
+  <div><span>Inactivos +30 dias</span><b>{{ inactivos }}</b></div>
+</section>
+<div class="dos">
+  <section>
+    <h2>Ventas por canal</h2>
+    {% for r in por_canal %}
+    <div class="barra"><span>{{ r['canal'] }}</span><i style="width: {{ (100 * r['monto'] / maximo)|round }}%"></i><em>${{ '%.0f'|format(r['monto']) }}</em></div>
+    {% endfor %}
+  </section>
+  <section>
+    <h2>Top clientes por LTV</h2>
+    <ol>{% for c in top %}<li><a href="{{ url_for('clientes.ficha', id_cliente=c['id_cliente']) }}">{{ c['nombre'] }}</a> - ${{ '%.2f'|format(c['ltv']) }}</li>{% endfor %}</ol>
+  </section>
+</div>
+{% endblock %}
