@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Registro de actividades</h1>
+<table>
+  <tr><th>Fecha</th><th>Usuario</th><th>Accion</th><th>Detalle</th></tr>
+  {% for a in registros %}<tr><td>{{ a['fecha'] }}</td><td>{{ a['usuario'] or '-' }}</td><td>{{ a['accion'] }}</td><td>{{ a['detalle'] }}</td></tr>
+  {% else %}<tr><td colspan="4">Sin actividad.</td></tr>{% endfor %}
+</table>
+{% endblock %}
