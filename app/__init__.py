@@ -13,7 +13,7 @@ def create_app(test_config=None):
         app.config.update(test_config)
     os.makedirs(app.instance_path, exist_ok=True)
 
-    from . import db, auth, clientes, ventas, actividades, dashboard, plantillas
+    from . import db, auth, clientes, ventas, actividades, dashboard, plantillas, productos
     db.init_app(app)
     app.register_blueprint(auth.bp)
     app.register_blueprint(clientes.bp)
@@ -21,6 +21,7 @@ def create_app(test_config=None):
     app.register_blueprint(actividades.bp)
     app.register_blueprint(dashboard.bp)
     app.register_blueprint(plantillas.bp)
+    app.register_blueprint(productos.bp)
     app.add_url_rule("/", endpoint="index", view_func=dashboard.index)
 
     @app.before_request
