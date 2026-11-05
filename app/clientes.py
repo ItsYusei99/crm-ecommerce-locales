@@ -1,4 +1,6 @@
-from flask import Blueprint, flash, redirect, render_template, request, url_for, abort
+import csv
+import io
+from flask import Blueprint, Response, flash, redirect, render_template, request, url_for, abort
 from .auth import login_requerido, rol_requerido
 from .db import get_db
 from .servicios import (RESULTADOS, TIPOS_CONTACTO, link_whatsapp, patron_like, plantillas_de,
@@ -6,6 +8,44 @@ from .servicios import (RESULTADOS, TIPOS_CONTACTO, link_whatsapp, patron_like, 
 
 bp = Blueprint("clientes", __name__, url_prefix="/clientes")
 POR_PAGINA = 25
+
+
+def _filtro(q, seg):
+    where, params = " WHERE 1=1", []
+    if q:
+        where += " AND (nombre LIKE ? ESCAPE '\\' OR telefono_wa LIKE ? ESCAPE '\\' OR ig_user LIKE ? ESCAPE '\\')"
+        params += [patron_like(q)] * 3
+    if seg:
+        where += " AND segmento=?"
+        params.append(seg)
+    return where, params
+
+
+def _celda(valor):
+    """Evita inyeccion de formulas al abrir el CSV en Excel o Sheets."""
+    texto = "" if valor is None else str(valor)
+    return "'" + texto if texto[:1] in ("=", "+", "-", "@") else texto
+
+
+@bp.route("/exportar.csv")
+@rol_requerido("admin", "editor")
+def exportar():
+    q = request.args.get("q", "").strip()
+    seg = request.args.get("segmento", "")
+    where, params = _filtro(q, seg)
+    filas = get_db().execute(
+        "SELECT nombre, telefono_wa, ig_user, email, fecha_alta, segmento, ltv FROM Cliente" + where +
+        " ORDER BY ltv DESC, id_cliente", params).fetchall()
+    salida = io.StringIO()
+    salida.write("\ufeff")  # BOM para que Excel respete los acentos
+    w = csv.writer(salida)
+    w.writerow(["nombre", "whatsapp", "instagram", "email", "fecha_alta", "segmento", "ltv"])
+    for f in filas:
+        w.writerow([_celda(x) for x in f])
+    registrar_actividad(get_db(), "exportar_clientes", f"{len(filas)} filas")
+    get_db().commit()
+    return Response(salida.getvalue(), mimetype="text/csv",
+                    headers={"Content-Disposition": "attachment; filename=clientes.csv"})
 
 
 @bp.route("/")
@@ -17,13 +57,7 @@ def lista():
         pagina = max(1, int(request.args.get("pagina", 1)))
     except ValueError:
         pagina = 1
-    where, params = " WHERE 1=1", []
-    if q:
-        where += " AND (nombre LIKE ? ESCAPE '\\' OR telefono_wa LIKE ? ESCAPE '\\' OR ig_user LIKE ? ESCAPE '\\')"
-        params += [patron_like(q)] * 3
-    if seg:
-        where += " AND segmento=?"
-        params.append(seg)
+    where, params = _filtro(q, seg)
     db = get_db()
     total = db.execute("SELECT COUNT(*) FROM Cliente" + where, params).fetchone()[0]
     clientes = db.execute(
