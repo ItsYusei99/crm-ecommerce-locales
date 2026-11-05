@@ -30,6 +30,8 @@ def a_estatico(html):
         if ruta.startswith("/static/"):
             return f'{attr}="{BASE}{ruta}"'
         ruta = ruta.split("?")[0].rstrip("/")
+        if ruta.endswith(".csv"):
+            return f'{attr}="{BASE}{ruta}"'
         return f'{attr}="{BASE}{ruta}/"'
     html = re.sub(r'(href|action)="(/[^"]*)"', cambiar, html)
     html = html.replace("<main>", "<main>" + AVISO, 1).replace("</head>", BLOQUEO + "</head>", 1)
@@ -52,14 +54,20 @@ def main():
     with app.app_context():
         init_db()
         ids = [r[0] for r in get_db().execute("SELECT id_cliente FROM Cliente")]
+        pids = [r[0] for r in get_db().execute("SELECT id_producto FROM Producto")]
     c = app.test_client()
     c.post("/auth/login", data={"correo": "youssef@crm.local", "password": "demo1234"})
-    rutas = ["/", "/clientes/", "/ventas/", "/ventas/nuevo", "/clientes/nuevo", "/actividades/", "/auth/usuarios"]
+    rutas = ["/", "/clientes/", "/ventas/", "/ventas/nuevo", "/clientes/nuevo", "/actividades/", "/auth/usuarios",
+             "/plantillas/", "/productos/", "/privacidad"]
     rutas += [f"/clientes/{i}" for i in ids] + [f"/clientes/{i}/editar" for i in ids]
+    rutas += ["/productos/nuevo"] + [f"/productos/{i}/editar" for i in pids]
     for r in rutas:
         resp = c.get(r)
         assert resp.status_code == 200, (r, resp.status_code)
         guardar(r, a_estatico(resp.get_data(as_text=True)))
+    csv_destino = os.path.join(SALIDA, "demo", "clientes", "exportar.csv")
+    with open(csv_destino, "wb") as f:  # la demo ofrece la exportacion como archivo estatico
+        f.write(c.get("/clientes/exportar.csv").data)
     for r in ["/auth/login", "/auth/registro", "/auth/logout"]:  # en la demo ya hay sesion iniciada
         guardar(r, f'<meta http-equiv="refresh" content="0; url={BASE}/">')
     open(os.path.join(SALIDA, ".nojekyll"), "w").close()
