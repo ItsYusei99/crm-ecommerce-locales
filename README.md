@@ -10,7 +10,7 @@ clientes (nuevo, frecuente, inactivo) para hacer postventa por WhatsApp.
 
 **Sitio y demo:** https://itsyusei99.github.io/crm-ecommerce-locales/
 
-## Estado: Fase III - 70 % funcional
+## Estado: Fase IV - v1.0.0
 
 | Modulo | Estado |
 |---|---|
@@ -20,8 +20,10 @@ clientes (nuevo, frecuente, inactivo) para hacer postventa por WhatsApp.
 | Seguimiento de ventas (pedidos y pipeline por estado) | Listo |
 | Registro de actividades (bitacora) | Listo |
 | Dashboard (ventas, ticket, recompra, inactivos, por canal) | Listo |
-| Plantillas WhatsApp editables, exportar CSV, catalogo de productos | Pendiente (rc) |
-| Despliegue y migracion a MySQL | Pendiente (v1.0) |
+| Plantillas WhatsApp editables, exportar CSV, catalogo de productos | Listo |
+| MySQL: esquema y script de migracion de datos (`docs/mysql/`, `scripts/migrar_a_mysql.py`) | Listo |
+| Despliegue en servidor y uso de MySQL en produccion | Pendiente (la app corre sobre SQLite; Pages es solo demo) |
+| Aviso de privacidad (`/privacidad`) y seguridad (CSRF, cabeceras) | Listo |
 
 ## Como correrlo
 
@@ -33,6 +35,10 @@ flask --app app run          # http://127.0.0.1:5000
 ```
 
 Usuarios de prueba: `youssef@crm.local` (admin) y `emma@crm.local` (editor), contrasena `demo1234`.
+
+## Documentacion
+
+`docs/`: [pruebas funcionales](docs/PRUEBAS_FUNCIONALES.md), [rendimiento y usabilidad](docs/RENDIMIENTO_Y_USABILIDAD.md), [manual de usuario](docs/MANUAL_USUARIO.md), [aviso de privacidad](docs/AVISO_PRIVACIDAD.md), [colaboracion](docs/COLABORACION.md) y [evaluacion](docs/EVALUACION.md).
 
 ## Pruebas
 

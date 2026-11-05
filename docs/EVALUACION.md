@@ -6,7 +6,7 @@ Datos tomados del repositorio, de los issues y de las mediciones del proyecto.
 
 | Indicador | Fase III (beta) | Fase IV (final) |
 |---|---|---|
-| Módulos funcionales | 6 de 8 (70 %) | 8 de 8 (100 %) |
+| Módulos funcionales | 6 de 8 (70 %) | 7 de 8; el 8.º (MySQL y despliegue) quedó con esquema y script de migración, falta el servidor |
 | Issues cerrados | 8 de 12 | 12 de 12 más 6 de la Fase IV |
 | Pruebas automáticas | 13 | 49 |
 | Líneas de código de la app | ~430 | ~680 |
