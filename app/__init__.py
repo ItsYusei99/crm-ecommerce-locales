@@ -8,12 +8,14 @@ def create_app(test_config=None):
     app.config.from_mapping(
         SECRET_KEY=os.environ.get("CRM_SECRET_KEY", "dev-cambiar-en-produccion"),
         DATABASE=os.path.join(app.instance_path, "crm.sqlite"),
+        RESPONSABLE=os.environ.get("CRM_RESPONSABLE", "Equipo 3 (Youssef Garcia y Emmanuel)"),
+        PRIVACIDAD_CONTACTO=os.environ.get("CRM_PRIVACIDAD_CONTACTO", "definir correo del responsable en CRM_PRIVACIDAD_CONTACTO"),
     )
     if test_config:
         app.config.update(test_config)
     os.makedirs(app.instance_path, exist_ok=True)
 
-    from . import db, auth, clientes, ventas, actividades, dashboard, plantillas, productos
+    from . import db, auth, clientes, ventas, actividades, dashboard, plantillas, productos, legal
     db.init_app(app)
     app.register_blueprint(auth.bp)
     app.register_blueprint(clientes.bp)
@@ -22,6 +24,7 @@ def create_app(test_config=None):
     app.register_blueprint(dashboard.bp)
     app.register_blueprint(plantillas.bp)
     app.register_blueprint(productos.bp)
+    app.register_blueprint(legal.bp)
     app.add_url_rule("/", endpoint="index", view_func=dashboard.index)
 
     @app.before_request

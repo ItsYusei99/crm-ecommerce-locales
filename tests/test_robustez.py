@@ -88,3 +88,12 @@ def test_paginacion_de_clientes(admin, app):
 def test_cabeceras_de_seguridad(admin):
     r = admin.get("/")
     assert r.headers["X-Content-Type-Options"] == "nosniff" and r.headers["X-Frame-Options"] == "DENY"
+
+
+def test_aviso_de_privacidad_es_publico(client):
+    html = client.get("/privacidad").get_data(as_text=True)
+    assert "Aviso de privacidad" in html and "ARCO" in html and "LFPDPPP" in html
+
+
+def test_pie_de_pagina_enlaza_aviso(client):
+    assert "/privacidad" in client.get("/auth/login").get_data(as_text=True)

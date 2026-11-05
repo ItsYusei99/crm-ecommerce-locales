@@ -27,5 +27,6 @@
     {% for m in get_flashed_messages() %}<div class="aviso">{{ m }}</div>{% endfor %}
     {% block content %}{% endblock %}
   </main>
+  <footer><a href="{{ url_for('legal.privacidad') }}">Aviso de privacidad</a></footer>
 </body>
 </html>
