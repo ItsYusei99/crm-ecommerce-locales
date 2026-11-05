@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
-<form method="post" class="caja">
+<form method="post" class="caja"><input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
   <h1>Registro</h1>
   <label>Nombre <input name="nombre" required></label>
   <label>Correo <input name="correo" type="email" required></label>

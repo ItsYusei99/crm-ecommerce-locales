@@ -1,5 +1,6 @@
 import os
-from flask import Flask
+import secrets
+from flask import Flask, abort, request, session
 
 
 def create_app(test_config=None):
@@ -7,17 +8,47 @@ def create_app(test_config=None):
     app.config.from_mapping(
         SECRET_KEY=os.environ.get("CRM_SECRET_KEY", "dev-cambiar-en-produccion"),
         DATABASE=os.path.join(app.instance_path, "crm.sqlite"),
+        RESPONSABLE=os.environ.get("CRM_RESPONSABLE", "Equipo 3 (Youssef Garcia y Emmanuel)"),
+        PRIVACIDAD_CONTACTO=os.environ.get("CRM_PRIVACIDAD_CONTACTO", "definir correo del responsable en CRM_PRIVACIDAD_CONTACTO"),
     )
     if test_config:
         app.config.update(test_config)
     os.makedirs(app.instance_path, exist_ok=True)
 
-    from . import db, auth, clientes, ventas, actividades, dashboard
+    from . import db, auth, clientes, ventas, actividades, dashboard, plantillas, productos, legal
     db.init_app(app)
     app.register_blueprint(auth.bp)
     app.register_blueprint(clientes.bp)
     app.register_blueprint(ventas.bp)
     app.register_blueprint(actividades.bp)
     app.register_blueprint(dashboard.bp)
+    app.register_blueprint(plantillas.bp)
+    app.register_blueprint(productos.bp)
+    app.register_blueprint(legal.bp)
     app.add_url_rule("/", endpoint="index", view_func=dashboard.index)
+
+    @app.before_request
+    def verificar_csrf():
+        if not app.config.get("CSRF_ACTIVO", not app.config.get("TESTING")):
+            return
+        if request.method == "POST":
+            token = session.get("csrf")
+            if not token or not secrets.compare_digest(token, request.form.get("csrf_token", "")):
+                abort(400)
+
+    @app.context_processor
+    def inyectar_csrf():
+        def csrf_token():
+            if "csrf" not in session:
+                session["csrf"] = secrets.token_hex(16)
+            return session["csrf"]
+        return {"csrf_token": csrf_token}
+
+    @app.after_request
+    def cabeceras_seguridad(resp):
+        resp.headers.setdefault("X-Content-Type-Options", "nosniff")
+        resp.headers.setdefault("X-Frame-Options", "DENY")
+        resp.headers.setdefault("Referrer-Policy", "same-origin")
+        return resp
+
     return app

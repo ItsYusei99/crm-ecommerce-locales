@@ -9,6 +9,17 @@ PLANTILLAS = {
 }
 
 
+TIPOS_CONTACTO = ["WhatsApp", "Instagram", "Llamada", "Email"]
+RESULTADOS = ["pendiente", "respondio", "compro", "sin respuesta"]
+CANALES = ["WA", "IG", "WEB"]
+
+
+def patron_like(texto):
+    """Escapa % y _ para que la busqueda trate los comodines como texto."""
+    limpio = texto.replace("\\", "\\\\").replace("%", "\\%").replace("_", "\\_")
+    return f"%{limpio}%"
+
+
 def segmento_para(num_pedidos, ultima_compra):
     if num_pedidos == 0:
         return "nuevo"
@@ -34,3 +45,13 @@ def registrar_actividad(db, accion, detalle=""):
 def link_whatsapp(telefono, texto):
     from urllib.parse import quote
     return f"https://wa.me/{telefono}?text={quote(texto)}"
+
+
+def plantillas_de(db):
+    """Plantillas guardadas en la BD; si falta alguna usa la de fabrica."""
+    guardadas = {r["clave"]: r["texto"] for r in db.execute("SELECT clave, texto FROM Plantilla ORDER BY clave")}
+    return guardadas or dict(PLANTILLAS)
+
+
+def render_plantilla(texto, nombre):
+    return texto.replace("{nombre}", nombre)

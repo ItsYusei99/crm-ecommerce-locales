@@ -7,7 +7,7 @@
     {% for p in pipeline[e] %}
     <div class="tarjeta">
       <b>#{{ p['id_pedido'] }} {{ p['cliente'] }}</b><br>{{ p['canal'] }} · ${{ '%.2f'|format(p['total']) }}
-      <form method="post" action="{{ url_for('ventas.cambiar_estado', id_pedido=p['id_pedido']) }}" class="linea">
+      <form method="post" action="{{ url_for('ventas.cambiar_estado', id_pedido=p['id_pedido']) }}" class="linea"><input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
         <select name="estado">{% for x in estados %}<option {% if x == e %}selected{% endif %}>{{ x }}</option>{% endfor %}</select><button>Mover</button>
       </form>
     </div>

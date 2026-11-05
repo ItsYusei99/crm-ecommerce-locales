@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
-<h1>Clientes <a class="boton" href="{{ url_for('clientes.nuevo') }}">+ Nuevo</a></h1>
+<h1>Clientes <a class="boton" href="{{ url_for('clientes.nuevo') }}">+ Nuevo</a>
+  {% if g.usuario['rol'] in ('admin','editor') %}<a class="boton" href="{{ url_for('clientes.exportar', q=q, segmento=segmento) }}">Exportar CSV</a>{% endif %}</h1>
 <form class="linea">
   <input name="q" value="{{ q }}" placeholder="Buscar nombre, WhatsApp o Instagram">
   <select name="segmento"><option value="">Todos</option>{% for s in ['nuevo','frecuente','inactivo'] %}<option {% if s == segmento %}selected{% endif %}>{{ s }}</option>{% endfor %}</select>
@@ -14,4 +15,9 @@
     <td><span class="tag {{ c['segmento'] }}">{{ c['segmento'] }}</span></td><td>${{ '%.2f'|format(c['ltv']) }}</td></tr>
   {% else %}<tr><td colspan="5">Sin clientes.</td></tr>{% endfor %}
 </table>
+<p class="paginas">{{ total }} cliente(s) ·
+  {% if pagina > 1 %}<a href="{{ url_for('clientes.lista', q=q, segmento=segmento, pagina=pagina-1) }}">&laquo; Anterior</a>{% endif %}
+  Pagina {{ pagina }} de {{ paginas }}
+  {% if pagina < paginas %}<a href="{{ url_for('clientes.lista', q=q, segmento=segmento, pagina=pagina+1) }}">Siguiente &raquo;</a>{% endif %}
+</p>
 {% endblock %}
