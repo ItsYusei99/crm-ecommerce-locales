@@ -55,11 +55,11 @@
   <div class="wrap">
     <nav>
       <div class="logo"><b>C</b> CRM Ecommerce Locales</div>
-      <div class="links"><a href="#modulos">Modulos</a><a href="#arquitectura">Arquitectura</a><a href="#equipo">Equipo</a><a href="https://github.com/ItsYusei99/crm-ecommerce-locales">GitHub</a></div>
+      <div class="links"><a href="#modulos">Modulos</a><a href="https://github.com/ItsYusei99/crm-ecommerce-locales/blob/main/docs/MANUAL_USUARIO.md">Manual</a><a href="#arquitectura">Arquitectura</a><a href="#equipo">Equipo</a><a href="https://github.com/ItsYusei99/crm-ecommerce-locales">GitHub</a></div>
     </nav>
     <div class="hero">
       <div>
-        <span class="chip">FASE III · v0.7.0-BETA</span>
+        <span class="chip">FASE IV · v1.0.0</span>
         <h1>CRM para Emprendedores de Ecommerce Locales</h1>
         <p>Clientes, ventas y postventa por WhatsApp en un solo lugar, para negocios que venden por Instagram, WhatsApp y tienda en linea.</p>
         <div class="btns">
@@ -74,17 +74,17 @@
 
 <div class="wrap">
   <div class="stats">
-    <div class="stat"><b>70%</b><span>CRM funcional</span></div>
-    <div class="stat"><b>6 / 8</b><span>modulos terminados</span></div>
-    <div class="stat"><b>13</b><span>pruebas en verde</span></div>
-    <div class="stat"><b>3</b><span>canales: IG, WA, Web</span></div>
+    <div class="stat"><b>v1.0</b><span>version final del curso</span></div>
+    <div class="stat"><b>13</b><span>errores encontrados y corregidos</span></div>
+    <div class="stat"><b>49</b><span>pruebas en verde</span></div>
+    <div class="stat"><b>47x</b><span>mas rapido el tablero de ventas</span></div>
   </div>
 </div>
 
 <section id="modulos">
   <div class="wrap">
     <div class="kicker">Modulos</div>
-    <h2>Lo que ya hace el CRM</h2>
+    <h2>Lo que hace el CRM</h2>
     <div class="grid">
       <div class="card"><h3>Usuarios y seguridad</h3><p>Registro, login y roles admin, editor y colaborador. Contrasenas con hash.</p></div>
       <div class="card"><h3>Clientes</h3><p>Alta, edicion, busqueda por nombre, WhatsApp o Instagram, segmento y LTV.</p></div>
@@ -92,6 +92,9 @@
       <div class="card"><h3>Seguimiento de ventas</h3><p>Pipeline por estado; cada venta recalcula LTV y segmento del cliente.</p></div>
       <div class="card"><h3>Registro de actividades</h3><p>Bitacora de quien hizo que dentro del sistema.</p></div>
       <div class="card"><h3>Dashboard</h3><p>Ventas, ticket promedio, recompra, inactivos, ventas por canal y top LTV.</p></div>
+      <div class="card"><h3>Plantillas de WhatsApp</h3><p>Mensajes editables con el nombre del cliente, listos para enviar en un clic.</p></div>
+      <div class="card"><h3>Catalogo y exportacion</h3><p>Productos con baja logica y lista de clientes a CSV compatible con Excel.</p></div>
+      <div class="card"><h3>Privacidad y seguridad</h3><p>Aviso de privacidad, proteccion CSRF, roles y cabeceras de seguridad.</p></div>
     </div>
   </div>
 </section>
@@ -105,6 +108,8 @@
       <div class="shot"><img src="img/app_ficha.png" alt="Ficha del cliente"><div><b>Ficha 360</b> · pedidos, contactos y WhatsApp</div></div>
       <div class="shot"><img src="img/app_ventas.png" alt="Pipeline de ventas"><div><b>Ventas</b> · pipeline por estado</div></div>
       <div class="shot"><img src="img/app_actividades.png" alt="Registro de actividades"><div><b>Actividades</b> · bitacora del equipo</div></div>
+      <div class="shot"><img src="img/app_plantillas.png" alt="Plantillas de WhatsApp"><div><b>Plantillas</b> · mensajes editables</div></div>
+      <div class="shot"><img src="img/app_catalogo.png" alt="Catalogo de productos"><div><b>Catalogo</b> · productos activos e inactivos</div></div>
     </div>
   </div>
 </section>
@@ -125,7 +130,7 @@
       <div class="paso"><b>GitHub</b><br>Issues con descripcion, analisis y solucion. Ramas feature por modulo.</div>
       <div class="paso"><b>Zube</b><br>Tablero Kanban sincronizado con los issues y sprints beta / rc.</div>
       <div class="paso"><b>Travis CI</b><br>pytest en Python 3.11 y 3.12 en cada push y pull request.</div>
-      <div class="paso"><b>Releases</b><br>v0.7.0-beta publicado; v0.9.0-rc en curso.</div>
+      <div class="paso"><b>Releases</b><br>v0.7.0-beta, v0.9.0-rc y v1.0.0 publicados.</div>
     </div>
     <h3 style="margin-top:40px;color:var(--navy)">Correrlo en local</h3>
     <pre>pip install -r requirements.txt
@@ -145,6 +150,6 @@ flask --app app run</pre>
   </div>
 </section>
 
-<footer><div class="wrap">CRM Ecommerce Locales · Taller de productividad · Octubre 2026 · <a href="https://github.com/ItsYusei99/crm-ecommerce-locales">Repositorio</a></div></footer>
+<footer><div class="wrap">CRM Ecommerce Locales · Taller de productividad · Noviembre 2026 · <a href="https://github.com/ItsYusei99/crm-ecommerce-locales">Repositorio</a></div></footer>
 </body>
 </html>

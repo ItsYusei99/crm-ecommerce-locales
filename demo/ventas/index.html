@@ -14,7 +14,9 @@
       <a href="/crm-ecommerce-locales/demo/">Dashboard</a>
       <a href="/crm-ecommerce-locales/demo/clientes/">Clientes</a>
       <a href="/crm-ecommerce-locales/demo/ventas/">Ventas</a>
+      <a href="/crm-ecommerce-locales/demo/productos/">Catalogo</a>
       <a href="/crm-ecommerce-locales/demo/actividades/">Actividades</a>
+      <a href="/crm-ecommerce-locales/demo/plantillas/">Plantillas</a>
       <a href="/crm-ecommerce-locales/demo/auth/usuarios/">Usuarios</a>
       <span class="usuario">Youssef (admin)</span>
       <a href="/crm-ecommerce-locales/demo/auth/logout/">Salir</a>
@@ -35,7 +37,7 @@
     
     <div class="tarjeta">
       <b>#2 Ana Lopez</b><br>IG · $299.00
-      <form method="post" action="/crm-ecommerce-locales/demo/ventas/2/estado/" class="linea">
+      <form method="post" action="/crm-ecommerce-locales/demo/ventas/2/estado/" class="linea"><input type="hidden" name="csrf_token" value="1af6e4017fe287e3e37d961557ffc76b">
         <select name="estado"><option >nuevo</option><option selected>pagado</option><option >enviado</option><option >entregado</option><option >cancelado</option></select><button>Mover</button>
       </form>
     </div>
@@ -50,14 +52,14 @@
     
     <div class="tarjeta">
       <b>#1 Ana Lopez</b><br>WA · $598.00
-      <form method="post" action="/crm-ecommerce-locales/demo/ventas/1/estado/" class="linea">
+      <form method="post" action="/crm-ecommerce-locales/demo/ventas/1/estado/" class="linea"><input type="hidden" name="csrf_token" value="1af6e4017fe287e3e37d961557ffc76b">
         <select name="estado"><option >nuevo</option><option >pagado</option><option >enviado</option><option selected>entregado</option><option >cancelado</option></select><button>Mover</button>
       </form>
     </div>
     
     <div class="tarjeta">
       <b>#3 Maria Ruiz</b><br>WEB · $499.00
-      <form method="post" action="/crm-ecommerce-locales/demo/ventas/3/estado/" class="linea">
+      <form method="post" action="/crm-ecommerce-locales/demo/ventas/3/estado/" class="linea"><input type="hidden" name="csrf_token" value="1af6e4017fe287e3e37d961557ffc76b">
         <select name="estado"><option >nuevo</option><option >pagado</option><option >enviado</option><option selected>entregado</option><option >cancelado</option></select><button>Mover</button>
       </form>
     </div>
@@ -71,5 +73,6 @@
 </div>
 
   </main>
+  <footer><a href="/crm-ecommerce-locales/demo/privacidad/">Aviso de privacidad</a></footer>
 </body>
 </html>

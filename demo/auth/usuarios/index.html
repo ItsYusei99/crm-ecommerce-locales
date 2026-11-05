@@ -14,7 +14,9 @@
       <a href="/crm-ecommerce-locales/demo/">Dashboard</a>
       <a href="/crm-ecommerce-locales/demo/clientes/">Clientes</a>
       <a href="/crm-ecommerce-locales/demo/ventas/">Ventas</a>
+      <a href="/crm-ecommerce-locales/demo/productos/">Catalogo</a>
       <a href="/crm-ecommerce-locales/demo/actividades/">Actividades</a>
+      <a href="/crm-ecommerce-locales/demo/plantillas/">Plantillas</a>
       <a href="/crm-ecommerce-locales/demo/auth/usuarios/">Usuarios</a>
       <span class="usuario">Youssef (admin)</span>
       <a href="/crm-ecommerce-locales/demo/auth/logout/">Salir</a>
@@ -29,13 +31,13 @@
   <tr><th>Nombre</th><th>Correo</th><th>Rol</th></tr>
   
   <tr><td>Youssef</td><td>youssef@crm.local</td>
-    <td><form method="post" class="linea">
+    <td><form method="post" class="linea"><input type="hidden" name="csrf_token" value="1af6e4017fe287e3e37d961557ffc76b">
       <input type="hidden" name="id_usuario" value="1">
       <select name="rol"><option selected>admin</option><option >editor</option><option >colaborador</option></select>
       <button>Guardar</button></form></td></tr>
   
   <tr><td>Emmanuel</td><td>emma@crm.local</td>
-    <td><form method="post" class="linea">
+    <td><form method="post" class="linea"><input type="hidden" name="csrf_token" value="1af6e4017fe287e3e37d961557ffc76b">
       <input type="hidden" name="id_usuario" value="2">
       <select name="rol"><option >admin</option><option selected>editor</option><option >colaborador</option></select>
       <button>Guardar</button></form></td></tr>
@@ -43,5 +45,6 @@
 </table>
 
   </main>
+  <footer><a href="/crm-ecommerce-locales/demo/privacidad/">Aviso de privacidad</a></footer>
 </body>
 </html>

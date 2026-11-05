@@ -14,7 +14,9 @@
       <a href="/crm-ecommerce-locales/demo/">Dashboard</a>
       <a href="/crm-ecommerce-locales/demo/clientes/">Clientes</a>
       <a href="/crm-ecommerce-locales/demo/ventas/">Ventas</a>
+      <a href="/crm-ecommerce-locales/demo/productos/">Catalogo</a>
       <a href="/crm-ecommerce-locales/demo/actividades/">Actividades</a>
+      <a href="/crm-ecommerce-locales/demo/plantillas/">Plantillas</a>
       <a href="/crm-ecommerce-locales/demo/auth/usuarios/">Usuarios</a>
       <span class="usuario">Youssef (admin)</span>
       <a href="/crm-ecommerce-locales/demo/auth/logout/">Salir</a>
@@ -29,7 +31,7 @@
 <p><b>LTV: $0.00</b> ·
   <a href="/crm-ecommerce-locales/demo/clientes/2/editar/">Editar</a>
   
-  <form method="post" action="/crm-ecommerce-locales/demo/clientes/2/eliminar/" class="linea" onsubmit="return confirm('Eliminar cliente?')"><button class="peligro">Eliminar</button></form>
+  <form method="post" action="/crm-ecommerce-locales/demo/clientes/2/eliminar/" class="linea" onsubmit="return confirm('Eliminar cliente?')"><input type="hidden" name="csrf_token" value="1af6e4017fe287e3e37d961557ffc76b"><button class="peligro">Eliminar</button></form>
   
 </p>
 <div class="dos">
@@ -37,7 +39,7 @@
     <h2>Mensajes rapidos WhatsApp</h2>
     <a class="boton" target="_blank" href="https://wa.me/5215587654321?text=Hola%20Luis%2C%20gracias%20por%20tu%20compra.%20Cualquier%20duda%20aqui%20estamos.">gracias</a> <a class="boton" target="_blank" href="https://wa.me/5215587654321?text=Hola%20Luis%2C%20hace%20tiempo%20no%20te%20vemos.%20Tenemos%20novedades%20que%20te%20pueden%20gustar.">reactivar</a> <a class="boton" target="_blank" href="https://wa.me/5215587654321?text=Hola%20Luis%2C%20nos%20ayudarias%20mucho%20con%20una%20resena%20de%20tu%20ultimo%20pedido.">resena</a> 
     <h2>Registrar contacto</h2>
-    <form method="post" action="/crm-ecommerce-locales/demo/clientes/2/contacto/" class="caja">
+    <form method="post" action="/crm-ecommerce-locales/demo/clientes/2/contacto/" class="caja"><input type="hidden" name="csrf_token" value="1af6e4017fe287e3e37d961557ffc76b">
       <select name="tipo"><option>WhatsApp</option><option>Instagram</option><option>Llamada</option><option>Email</option></select>
       <textarea name="mensaje" required placeholder="Que se hablo"></textarea>
       <select name="resultado"><option>pendiente</option><option>respondio</option><option>compro</option><option>sin respuesta</option></select>
@@ -53,5 +55,6 @@
 </div>
 
   </main>
+  <footer><a href="/crm-ecommerce-locales/demo/privacidad/">Aviso de privacidad</a></footer>
 </body>
 </html>

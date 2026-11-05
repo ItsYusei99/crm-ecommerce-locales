@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CRM Ecommerce Locales</title>
+  <link rel="stylesheet" href="/crm-ecommerce-locales/demo/static/estilos.css">
+<style>form button, form input, form select, form textarea{pointer-events:none;opacity:.55}</style><script>document.addEventListener('submit',e=>e.preventDefault(),true)</script></head>
+<body>
+  <header>
+    <strong>CRM Ecommerce Locales</strong>
+    
+    <nav>
+      <a href="/crm-ecommerce-locales/demo/">Dashboard</a>
+      <a href="/crm-ecommerce-locales/demo/clientes/">Clientes</a>
+      <a href="/crm-ecommerce-locales/demo/ventas/">Ventas</a>
+      <a href="/crm-ecommerce-locales/demo/productos/">Catalogo</a>
+      <a href="/crm-ecommerce-locales/demo/actividades/">Actividades</a>
+      <a href="/crm-ecommerce-locales/demo/plantillas/">Plantillas</a>
+      <a href="/crm-ecommerce-locales/demo/auth/usuarios/">Usuarios</a>
+      <span class="usuario">Youssef (admin)</span>
+      <a href="/crm-ecommerce-locales/demo/auth/logout/">Salir</a>
+    </nav>
+    
+  </header>
+  <main><div class="aviso">Demo de solo lectura en GitHub Pages con datos de prueba. Los formularios estan desactivados; para usar el CRM completo correlo en local (ver README).</div>
+    
+    
+<h1>Catalogo de productos <a class="boton" href="/crm-ecommerce-locales/demo/productos/nuevo/">+ Nuevo</a></h1>
+<table>
+  <tr><th>Producto</th><th>Tipo</th><th>Precio</th><th>Estado</th><th></th></tr>
+  
+  <tr><td>Curso marketing digital</td><td>digital</td><td>$499.00</td>
+    <td>activo</td>
+    <td>
+      <a href="/crm-ecommerce-locales/demo/productos/2/editar/">Editar</a>
+      <form method="post" action="/crm-ecommerce-locales/demo/productos/2/activo/" class="linea">
+        <input type="hidden" name="csrf_token" value="1af6e4017fe287e3e37d961557ffc76b">
+        <button>Desactivar</button></form></td></tr>
+  
+  <tr><td>Playera local</td><td>fisico</td><td>$299.00</td>
+    <td>activo</td>
+    <td>
+      <a href="/crm-ecommerce-locales/demo/productos/1/editar/">Editar</a>
+      <form method="post" action="/crm-ecommerce-locales/demo/productos/1/activo/" class="linea">
+        <input type="hidden" name="csrf_token" value="1af6e4017fe287e3e37d961557ffc76b">
+        <button>Desactivar</button></form></td></tr>
+  
+</table>
+
+  </main>
+  <footer><a href="/crm-ecommerce-locales/demo/privacidad/">Aviso de privacidad</a></footer>
+</body>
+</html>
