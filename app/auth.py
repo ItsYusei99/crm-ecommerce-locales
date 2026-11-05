@@ -91,8 +91,16 @@ def logout():
 def usuarios():
     db = get_db()
     if request.method == "POST":
-        db.execute("UPDATE Usuario SET rol=? WHERE id_usuario=?", (request.form["rol"], request.form["id_usuario"]))
-        registrar_actividad(db, "cambio_rol", f"usuario {request.form['id_usuario']} -> {request.form['rol']}")
-        db.commit()
+        rol, uid = request.form.get("rol"), request.form.get("id_usuario", "")
+        actual = db.execute("SELECT rol FROM Usuario WHERE id_usuario=?", (uid,)).fetchone()
+        admins = db.execute("SELECT COUNT(*) FROM Usuario WHERE rol='admin'").fetchone()[0]
+        if rol not in ("admin", "editor", "colaborador") or actual is None:
+            flash("Rol o usuario invalido.")
+        elif actual["rol"] == "admin" and rol != "admin" and admins <= 1:
+            flash("Debe quedar al menos un admin.")
+        else:
+            db.execute("UPDATE Usuario SET rol=? WHERE id_usuario=?", (rol, uid))
+            registrar_actividad(db, "cambio_rol", f"usuario {uid} -> {rol}")
+            db.commit()
     lista = db.execute("SELECT id_usuario, nombre, correo, rol FROM Usuario ORDER BY id_usuario").fetchall()
     return render_template("auth/usuarios.html", usuarios=lista)

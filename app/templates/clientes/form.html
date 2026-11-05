@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
-<form method="post" class="caja">
+<form method="post" class="caja"><input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
   <h1>{{ 'Editar' if cliente else 'Nuevo' }} cliente</h1>
   <label>Nombre <input name="nombre" value="{{ cliente['nombre'] if cliente }}" required></label>
   <label>WhatsApp (con lada, solo numeros) <input name="telefono_wa" value="{{ cliente['telefono_wa'] if cliente }}" required></label>

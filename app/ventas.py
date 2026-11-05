@@ -1,7 +1,7 @@
-from flask import Blueprint, flash, g, redirect, render_template, request, url_for
+from flask import Blueprint, abort, flash, g, redirect, render_template, request, url_for
 from .auth import login_requerido
 from .db import get_db
-from .servicios import recalcular_cliente, registrar_actividad
+from .servicios import CANALES, recalcular_cliente, registrar_actividad
 
 bp = Blueprint("ventas", __name__, url_prefix="/ventas")
 ESTADOS = ["nuevo", "pagado", "enviado", "entregado", "cancelado"]
@@ -12,7 +12,8 @@ ESTADOS = ["nuevo", "pagado", "enviado", "entregado", "cancelado"]
 def lista():
     db = get_db()
     pedidos = db.execute(
-        "SELECT p.*, c.nombre cliente FROM Pedido p JOIN Cliente c USING(id_cliente) ORDER BY p.fecha DESC").fetchall()
+        "SELECT p.*, c.nombre cliente FROM Pedido p JOIN Cliente c USING(id_cliente) "
+        "ORDER BY p.fecha DESC LIMIT 300").fetchall()
     pipeline = {e: [p for p in pedidos if p["estado"] == e] for e in ESTADOS}
     return render_template("ventas/lista.html", pipeline=pipeline, estados=ESTADOS)
 
@@ -22,12 +23,16 @@ def lista():
 def nuevo():
     db = get_db()
     if request.method == "POST":
-        id_cliente = int(request.form["id_cliente"])
-        id_producto = int(request.form["id_producto"])
-        cantidad = int(request.form.get("cantidad", 1))
-        prod = db.execute("SELECT * FROM Producto WHERE id_producto=?", (id_producto,)).fetchone()
-        if prod is None or cantidad < 1:
-            flash("Producto o cantidad invalidos.")
+        try:
+            id_cliente = int(request.form["id_cliente"])
+            id_producto = int(request.form["id_producto"])
+            cantidad = int(request.form.get("cantidad", 1))
+        except (KeyError, ValueError):
+            id_cliente = id_producto = cantidad = 0
+        prod = db.execute("SELECT * FROM Producto WHERE id_producto=? AND activo=1", (id_producto,)).fetchone()
+        existe = db.execute("SELECT 1 FROM Cliente WHERE id_cliente=?", (id_cliente,)).fetchone()
+        if prod is None or not existe or cantidad < 1 or request.form.get("canal") not in CANALES:
+            flash("Datos invalidos: revisa cliente, producto, cantidad y canal.")
         else:
             cur = db.execute(
                 "INSERT INTO Pedido (id_cliente, canal, total, id_usuario_registra) VALUES (?,?,?,?)",
@@ -39,7 +44,7 @@ def nuevo():
             db.commit()
             return redirect(url_for("ventas.lista"))
     clientes = db.execute("SELECT id_cliente, nombre FROM Cliente ORDER BY nombre").fetchall()
-    productos = db.execute("SELECT * FROM Producto ORDER BY nombre").fetchall()
+    productos = db.execute("SELECT * FROM Producto WHERE activo=1 ORDER BY nombre").fetchall()
     return render_template("ventas/form.html", clientes=clientes, productos=productos)
 
 
@@ -52,6 +57,8 @@ def cambiar_estado(id_pedido):
         return redirect(url_for("ventas.lista"))
     db = get_db()
     p = db.execute("SELECT id_cliente FROM Pedido WHERE id_pedido=?", (id_pedido,)).fetchone()
+    if p is None:
+        abort(404)
     db.execute("UPDATE Pedido SET estado=? WHERE id_pedido=?", (estado, id_pedido))
     recalcular_cliente(db, p["id_cliente"])
     registrar_actividad(db, "seguimiento_venta", f"pedido {id_pedido} -> {estado}")
