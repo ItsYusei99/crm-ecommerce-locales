@@ -45,3 +45,13 @@ def registrar_actividad(db, accion, detalle=""):
 def link_whatsapp(telefono, texto):
     from urllib.parse import quote
     return f"https://wa.me/{telefono}?text={quote(texto)}"
+
+
+def plantillas_de(db):
+    """Plantillas guardadas en la BD; si falta alguna usa la de fabrica."""
+    guardadas = {r["clave"]: r["texto"] for r in db.execute("SELECT clave, texto FROM Plantilla ORDER BY clave")}
+    return guardadas or dict(PLANTILLAS)
+
+
+def render_plantilla(texto, nombre):
+    return texto.replace("{nombre}", nombre)

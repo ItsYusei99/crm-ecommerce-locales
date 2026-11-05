@@ -1,4 +1,5 @@
 -- Esquema SQLite equivalente al modelo MySQL de la Fase II (CRM_BD.sql)
+DROP TABLE IF EXISTS Plantilla;
 DROP TABLE IF EXISTS Actividad;
 DROP TABLE IF EXISTS Interaccion;
 DROP TABLE IF EXISTS DetallePedido;
@@ -68,6 +69,13 @@ CREATE TABLE Actividad (
   fecha TEXT NOT NULL DEFAULT (datetime('now')),
   accion TEXT NOT NULL,
   detalle TEXT
+);
+
+-- Fase IV: plantillas de mensajes de WhatsApp editables (issue #9)
+CREATE TABLE Plantilla (
+  id_plantilla INTEGER PRIMARY KEY AUTOINCREMENT,
+  clave TEXT UNIQUE NOT NULL,
+  texto TEXT NOT NULL
 );
 
 CREATE INDEX idx_cliente_tel ON Cliente(telefono_wa);

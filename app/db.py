@@ -50,6 +50,8 @@ def cargar_datos_prueba(db):
     db.executemany("INSERT INTO Interaccion (id_cliente, tipo, mensaje, resultado) VALUES (?,?,?,?)",
                    [(1, "WhatsApp", "Gracias por tu compra de Playera local", "respondio"),
                     (3, "WhatsApp", "Hace tiempo no te vemos, tenemos novedades", "pendiente")])
+    from .servicios import PLANTILLAS
+    db.executemany("INSERT INTO Plantilla (clave, texto) VALUES (?,?)", list(PLANTILLAS.items()))
     from .servicios import recalcular_cliente
     for (cid,) in db.execute("SELECT id_cliente FROM Cliente").fetchall():
         recalcular_cliente(db, cid)

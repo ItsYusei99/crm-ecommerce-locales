@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Plantillas de WhatsApp</h1>
+<p>Usa <code>{nombre}</code> para insertar el primer nombre del cliente.</p>
+{% for clave, texto in plantillas.items() %}
+<form method="post" class="caja">
+  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+  <input type="hidden" name="clave" value="{{ clave }}">
+  <label>{{ clave }} <textarea name="texto" maxlength="500" required>{{ texto }}</textarea></label>
+  <button>Guardar</button>
+  <button class="peligro" formaction="{{ url_for('plantillas.eliminar', clave=clave) }}" onclick="return confirm('Eliminar plantilla?')">Eliminar</button>
+</form>
+{% endfor %}
+<form method="post" class="caja">
+  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+  <h2>Nueva plantilla</h2>
+  <label>Clave <input name="clave" required placeholder="ej. cumpleanos"></label>
+  <label>Texto <textarea name="texto" maxlength="500" required></textarea></label>
+  <button>Crear</button>
+</form>
+{% endblock %}
