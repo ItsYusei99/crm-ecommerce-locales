@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %}
+<form method="post" class="caja">
+  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+  <h1>{{ 'Editar' if producto else 'Nuevo' }} producto</h1>
+  <label>Nombre <input name="nombre" value="{{ producto['nombre'] if producto }}" required></label>
+  <label>Tipo <select name="tipo">{% for t in ['fisico','digital'] %}<option {% if producto and producto['tipo'] == t %}selected{% endif %}>{{ t }}</option>{% endfor %}</select></label>
+  <label>Precio <input name="precio" type="number" step="0.01" min="0" value="{{ producto['precio'] if producto }}" required></label>
+  <button>Guardar</button>
+</form>
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Catalogo de productos {% if g.usuario['rol'] in ('admin','editor') %}<a class="boton" href="{{ url_for('productos.nuevo') }}">+ Nuevo</a>{% endif %}</h1>
+<table>
+  <tr><th>Producto</th><th>Tipo</th><th>Precio</th><th>Estado</th>{% if g.usuario['rol'] in ('admin','editor') %}<th></th>{% endif %}</tr>
+  {% for p in productos %}
+  <tr><td>{{ p['nombre'] }}</td><td>{{ p['tipo'] }}</td><td>${{ '%.2f'|format(p['precio']) }}</td>
+    <td>{{ 'activo' if p['activo'] else 'inactivo' }}</td>
+    {% if g.usuario['rol'] in ('admin','editor') %}<td>
+      <a href="{{ url_for('productos.editar', id_producto=p['id_producto']) }}">Editar</a>
+      <form method="post" action="{{ url_for('productos.alternar', id_producto=p['id_producto']) }}" class="linea">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <button>{{ 'Desactivar' if p['activo'] else 'Activar' }}</button></form></td>{% endif %}</tr>
+  {% else %}<tr><td colspan="5">Sin productos.</td></tr>{% endfor %}
+</table>
+{% endblock %}
