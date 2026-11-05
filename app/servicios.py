@@ -9,6 +9,17 @@ PLANTILLAS = {
 }
 
 
+TIPOS_CONTACTO = ["WhatsApp", "Instagram", "Llamada", "Email"]
+RESULTADOS = ["pendiente", "respondio", "compro", "sin respuesta"]
+CANALES = ["WA", "IG", "WEB"]
+
+
+def patron_like(texto):
+    """Escapa % y _ para que la busqueda trate los comodines como texto."""
+    limpio = texto.replace("\\", "\\\\").replace("%", "\\%").replace("_", "\\_")
+    return f"%{limpio}%"
+
+
 def segmento_para(num_pedidos, ultima_compra):
     if num_pedidos == 0:
         return "nuevo"

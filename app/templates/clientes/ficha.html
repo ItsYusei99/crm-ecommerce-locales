@@ -5,7 +5,7 @@
 <p><b>LTV: ${{ '%.2f'|format(c['ltv']) }}</b> ·
   <a href="{{ url_for('clientes.editar', id_cliente=c['id_cliente']) }}">Editar</a>
   {% if g.usuario['rol'] == 'admin' %}
-  <form method="post" action="{{ url_for('clientes.eliminar', id_cliente=c['id_cliente']) }}" class="linea" onsubmit="return confirm('Eliminar cliente?')"><button class="peligro">Eliminar</button></form>
+  <form method="post" action="{{ url_for('clientes.eliminar', id_cliente=c['id_cliente']) }}" class="linea" onsubmit="return confirm('Eliminar cliente?')"><input type="hidden" name="csrf_token" value="{{ csrf_token() }}"><button class="peligro">Eliminar</button></form>
   {% endif %}
 </p>
 <div class="dos">
@@ -13,7 +13,7 @@
     <h2>Mensajes rapidos WhatsApp</h2>
     {% for k, url in links.items() %}<a class="boton" target="_blank" href="{{ url }}">{{ k }}</a> {% endfor %}
     <h2>Registrar contacto</h2>
-    <form method="post" action="{{ url_for('clientes.contacto', id_cliente=c['id_cliente']) }}" class="caja">
+    <form method="post" action="{{ url_for('clientes.contacto', id_cliente=c['id_cliente']) }}" class="caja"><input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
       <select name="tipo"><option>WhatsApp</option><option>Instagram</option><option>Llamada</option><option>Email</option></select>
       <textarea name="mensaje" required placeholder="Que se hablo"></textarea>
       <select name="resultado"><option>pendiente</option><option>respondio</option><option>compro</option><option>sin respuesta</option></select>

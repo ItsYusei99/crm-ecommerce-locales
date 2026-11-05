@@ -30,7 +30,8 @@ CREATE TABLE Producto (
   id_producto INTEGER PRIMARY KEY AUTOINCREMENT,
   nombre TEXT NOT NULL,
   tipo TEXT NOT NULL CHECK (tipo IN ('fisico','digital')),
-  precio REAL NOT NULL
+  precio REAL NOT NULL,
+  activo INTEGER NOT NULL DEFAULT 1
 );
 
 CREATE TABLE Pedido (
@@ -72,3 +73,9 @@ CREATE TABLE Actividad (
 CREATE INDEX idx_cliente_tel ON Cliente(telefono_wa);
 CREATE INDEX idx_pedido_fecha ON Pedido(fecha);
 CREATE INDEX idx_pedido_cliente ON Pedido(id_cliente);
+-- Fase IV: indices para las consultas de lista, filtro y dashboard
+CREATE INDEX idx_cliente_segmento_ltv ON Cliente(segmento, ltv DESC);
+CREATE INDEX idx_pedido_estado ON Pedido(estado);
+CREATE INDEX idx_pedido_canal ON Pedido(canal);
+CREATE INDEX idx_interaccion_cliente ON Interaccion(id_cliente, fecha);
+CREATE INDEX idx_detalle_pedido ON DetallePedido(id_pedido);
