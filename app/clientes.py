@@ -1,8 +1,8 @@
 from flask import Blueprint, flash, redirect, render_template, request, url_for, abort
 from .auth import login_requerido, rol_requerido
 from .db import get_db
-from .servicios import (PLANTILLAS, RESULTADOS, TIPOS_CONTACTO, link_whatsapp, patron_like,
-                        registrar_actividad)
+from .servicios import (RESULTADOS, TIPOS_CONTACTO, link_whatsapp, patron_like, plantillas_de,
+                        registrar_actividad, render_plantilla)
 
 bp = Blueprint("clientes", __name__, url_prefix="/clientes")
 POR_PAGINA = 25
@@ -72,7 +72,8 @@ def ficha(id_cliente):
     c = _obtener(id_cliente)
     pedidos = db.execute("SELECT * FROM Pedido WHERE id_cliente=? ORDER BY fecha DESC", (id_cliente,)).fetchall()
     contactos = db.execute("SELECT * FROM Interaccion WHERE id_cliente=? ORDER BY fecha DESC", (id_cliente,)).fetchall()
-    links = {k: link_whatsapp(c["telefono_wa"], v.format(nombre=c["nombre"].split()[0])) for k, v in PLANTILLAS.items()}
+    links = {k: link_whatsapp(c["telefono_wa"], render_plantilla(v, c["nombre"].split()[0]))
+             for k, v in plantillas_de(db).items()}
     return render_template("clientes/ficha.html", c=c, pedidos=pedidos, contactos=contactos, links=links)
 
 

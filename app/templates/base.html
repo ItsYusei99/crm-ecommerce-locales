@@ -15,6 +15,7 @@
       <a href="{{ url_for('clientes.lista') }}">Clientes</a>
       <a href="{{ url_for('ventas.lista') }}">Ventas</a>
       <a href="{{ url_for('actividades.lista') }}">Actividades</a>
+      {% if g.usuario['rol'] in ('admin','editor') %}<a href="{{ url_for('plantillas.lista') }}">Plantillas</a>{% endif %}
       {% if g.usuario['rol'] == 'admin' %}<a href="{{ url_for('auth.usuarios') }}">Usuarios</a>{% endif %}
       <span class="usuario">{{ g.usuario['nombre'] }} ({{ g.usuario['rol'] }})</span>
       <a href="{{ url_for('auth.logout') }}">Salir</a>
