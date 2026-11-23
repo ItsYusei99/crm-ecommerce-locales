@@ -14,9 +14,9 @@
 ## Cómo trabajamos
 
 1. Cada tarea es un **issue** con milestone (beta, rc, v1.0) y etiquetas (`requisito`, `bug`, `backend`, `frontend`, `ci`, `documentation`).
-2. Cada issue sale en una **rama `feature/…`** (o `fix/…`) desde `develop`.
+2. Cada issue sale en una rama `feature/…` (o `fix/…`) desde `develop`.
 3. Los commits son cortos, en español y con prefijo (`feat:`, `fix:`, `test:`, `docs:`, `ci:`) y cierran el issue con `closes #N`.
-4. Se hace **merge a `develop`** cuando las pruebas pasan; de `develop` se libera a `main` con un **tag** (`v0.7.0-beta`, `v0.9.0-rc`, `v1.0.0`).
+4. Se hace merge a `develop` cuando las pruebas pasan; de `develop` se libera a `main` con un tag (`v0.7.0-beta`, `v0.9.0-rc`, `v1.0.0`).
 5. Travis y Drone corren las pruebas en cada push; un build en rojo no se libera.
 
 ## Reparto
